@@ -5,8 +5,15 @@
 - Ubuntu
 - Docker (Please read the installation guide here: <https://docs.docker.com/installation/ubuntulinux/>)
 - GNU Make
+- git
 
 ## Getting Started
+
+### Checkout the Project
+
+```sh
+git clone https://github.com/wush978/KDD2015wpp.git
+```
 
 ### Download Dataset
 
@@ -17,8 +24,8 @@ for Computational Advertising Research](http://data.computational-advertising.or
 
 ### Make
 
-After downloading the dataset, we provide a Makefile to automate the steps to reproduce the experiments.
+After downloading the dataset, please execute `make` to reproduce the experiments.
 
-```sh
-make
-```
+## Trouble Shooting
+
+If you have any problem, please feel free to post an issue in <https://github.com/wush978/KDD2015wpp/issues>.
