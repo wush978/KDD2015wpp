@@ -20,3 +20,6 @@ ipinyou.contest.dataset.zip :
 .preparedata : .dockerbuild .decompress
 	-mkdir -p cache/
 	$(DOCKER_RUN) Rscript PrepareData.R
+
+.predict_ctr_wr : .preparedata PredictCTR_WR.R
+	$(DOCKER_RUN) Rscript PredictCTR_WR.R

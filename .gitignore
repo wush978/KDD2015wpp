@@ -1,3 +1,6 @@
+.Rproj.user
+.Rhistory
+.RData
 *.zip
 ipinyou.contest.dataset
 cache
@@ -6,3 +9,4 @@ cache
 .decompress
 .preparedata
 .predict_ctr_wr
+*.Rproj
