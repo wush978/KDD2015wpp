@@ -9,4 +9,5 @@ cache
 .decompress
 .preparedata
 .predict_ctr_wr
+.predict_wp
 *.Rproj

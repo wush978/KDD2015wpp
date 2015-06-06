@@ -22,4 +22,7 @@ ipinyou.contest.dataset.zip :
 	$(DOCKER_RUN) Rscript PrepareData.R
 
 .predict_ctr_wr : .preparedata PredictCTR_WR.R
-	$(DOCKER_RUN) Rscript PredictCTR_WR.R
+	$(DOCKER_RUN) Rscript PredictCTR_WR.R && touch .predict_ctr_wr
+
+.predict_wp : .predict_ctr_wr WinningPrice.R
+	$(DOCKER_RUN) Rscript WinningPrice.R && touch .predict_wp
