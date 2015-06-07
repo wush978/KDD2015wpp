@@ -26,3 +26,6 @@ ipinyou.contest.dataset.zip :
 
 .predict_wp : .predict_ctr_wr WinningPrice.R
 	$(DOCKER_RUN) Rscript WinningPrice.R && touch .predict_wp
+
+.fig9 : .predict_ctr_wr PredictCTR_WR_Fig9.R WinningPrice_Fig9.R
+	$(DOCKER_RUN) Rscript PredictCTR_WR_Fig9.R && Rscript WinningPrice_Fig9.R && touch .fig9
