@@ -22,10 +22,13 @@ ipinyou.contest.dataset.zip :
 	$(DOCKER_RUN) Rscript PrepareData.R
 
 .predict_ctr_wr : .preparedata PredictCTR_WR.R
-	$(DOCKER_RUN) Rscript PredictCTR_WR.R && touch .predict_ctr_wr
+	$(DOCKER_RUN) Rscript PredictCTR_WR.R | tee log/PredictCTR_WR.log && touch .predict_ctr_wr
 
 .predict_wp : .predict_ctr_wr WinningPrice.R
-	$(DOCKER_RUN) Rscript WinningPrice.R && touch .predict_wp
+	$(DOCKER_RUN) Rscript WinningPrice.R | tee log/WinningPrice.log && touch .predict_wp
 
 .fig9 : .predict_ctr_wr PredictCTR_WR_Fig9.R WinningPrice_Fig9.R
-	$(DOCKER_RUN) Rscript PredictCTR_WR_Fig9.R && $(DOCKER_RUN) Rscript WinningPrice_Fig9.R && touch .fig9
+	$(DOCKER_RUN) Rscript PredictCTR_WR_Fig9.R && $(DOCKER_RUN) Rscript WinningPrice_Fig9.R | tee log/WinningPrice_Fig9.log && touch .fig9
+
+.winningprice_ctr : .preparedata WinningPriceCTR.R
+	$(DOCKER_RUN) Rscript WinningPriceCTR.R | tee log/WinningPriceCTR.log && touch $@
