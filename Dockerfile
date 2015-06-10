@@ -2,6 +2,7 @@ FROM rocker/r-base
 MAINTAINER Wush Wu <wush978@gmail.com>
 
 RUN apt-get update
+RUN echo "options(repos=c(cran='http://cran.rstudio.com/'))" > /root/.Rprofile
 # Packages for data preprocessing
 RUN Rscript -e "install.packages('dplyr')" && \
   Rscript -e "install.packages('data.table')"
