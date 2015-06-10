@@ -11,7 +11,7 @@ ipinyou.contest.dataset.zip :
 	unzip ipinyou.contest.dataset.zip && touch .ipinyou.contest.dataset
 
 .dockerbuild : Dockerfile
-	docker pull $(DOCKER_IMAGE)
+	docker pull $(DOCKER_IMAGE) && touch .dockerbuild
 	# In case you want to build by your own:
 	# docker build -t $(DOCKER_IMAGE) . && touch .dockerbuild
 
