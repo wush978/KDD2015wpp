@@ -1,5 +1,6 @@
 WORKING_DIR=$(shell pwd)
-DOCKER_RUN=docker run --rm -v $(WORKING_DIR):/var/local/KDD2015wpp kdd2015wpp
+DOCKER_IMAGE=wush978/kdd2015wpp
+DOCKER_RUN=docker run --rm -v $(WORKING_DIR):/var/local/KDD2015wpp $(DOCKER_IMAGE)
 
 all : .predict_wp .fig9 .winningpricectr
 
@@ -10,7 +11,9 @@ ipinyou.contest.dataset.zip :
 	unzip ipinyou.contest.dataset.zip && touch .ipinyou.contest.dataset
 
 .dockerbuild : Dockerfile
-	docker build -t kdd2015wpp . && touch .dockerbuild
+	docker pull $(DOCKER_IMAGE)
+	# In case you want to build by your own:
+	# docker build -t $(DOCKER_IMAGE) . && touch .dockerbuild
 
 .decompress : .ipinyou.contest.dataset
 	$(DOCKER_RUN) find ipinyou.contest.dataset/training2nd -name "*.bz2" -exec bunzip2 -f {} \;
