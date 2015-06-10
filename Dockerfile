@@ -1,10 +1,6 @@
 FROM rocker/r-base
 MAINTAINER Wush Wu <wush978@gmail.com>
 
-ENV http_proxy="http://10.1.1.116:3128"
-ENV https_proxy="http://10.1.1.116:3128"
-ENV ftp_proxy="http://10.1.1.116:3128"
-
 RUN apt-get update
 # Packages for data preprocessing
 RUN Rscript -e "install.packages('dplyr')" && \
