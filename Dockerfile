@@ -9,6 +9,7 @@ RUN Rscript -e "install.packages('dplyr')" && \
 
 # Packages for experiments
 RUN Rscript -e "install.packages(c('FeatureHashing', 'glmnet'))" && \
+  apt-get update && \
   apt-get install -y --no-install-recommends libxml2-dev libcurl4-openssl-dev libssl-dev ca-certificates && \
   Rscript -e "install.packages(c('devtools', 'roxygen2'))"
 RUN Rscript -e "devtools::install_github('wush978/FastROC')"
