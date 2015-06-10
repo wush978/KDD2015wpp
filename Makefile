@@ -1,7 +1,7 @@
 WORKING_DIR=$(shell pwd)
 DOCKER_RUN=docker run --rm -v $(WORKING_DIR):/var/local/KDD2015wpp kdd2015wpp
 
-all :
+all : .predict_wp .fig9 .winningpricectr
 
 ipinyou.contest.dataset.zip :
 	echo "please download the \"ipinyou.contest.dataset.zip\" from \"http://data.computational-advertising.org/\""
