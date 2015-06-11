@@ -11,9 +11,9 @@ ipinyou.contest.dataset.zip :
 	unzip ipinyou.contest.dataset.zip && touch .ipinyou.contest.dataset
 
 .dockerbuild : Dockerfile
-	docker pull $(DOCKER_IMAGE) && touch .dockerbuild
+	# docker pull $(DOCKER_IMAGE) && touch .dockerbuild
 	# In case you want to build by your own:
-	# docker build -t $(DOCKER_IMAGE) . && touch .dockerbuild
+	docker build -t $(DOCKER_IMAGE) . && touch .dockerbuild
 
 .decompress : .ipinyou.contest.dataset
 	$(DOCKER_RUN) find ipinyou.contest.dataset/training2nd -name "*.bz2" -exec bunzip2 -f {} \;
@@ -23,6 +23,7 @@ ipinyou.contest.dataset.zip :
 .preparedata : .dockerbuild .decompress
 	-mkdir -p cache/
 	$(DOCKER_RUN) Rscript PrepareData.R
+	touch $@
 
 .predict_ctr_wr : .preparedata PredictCTR_WR.R
 	$(DOCKER_RUN) Rscript PredictCTR_WR.R | tee log/PredictCTR_WR.log && touch .predict_ctr_wr
