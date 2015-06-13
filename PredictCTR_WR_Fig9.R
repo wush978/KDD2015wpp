@@ -37,6 +37,7 @@ for(wp.ratio.i in seq_along(wp.ratio.all)) {
   for(season in c("training3rd")) {
     learner_ctr <- init_FTPRLLogisticRegression(0.01, 0.1, 0.1, 0.1, 2^20)
     learner_wr <- init_FTPRLLogisticRegression(0.1, 1, 0.1, 0.1, 2^20)
+    gc()
     for(i in seq_along(day.list[[season]])) {
       day <- day.list[[season]][i]
       loginfo("processing %s...", day)
