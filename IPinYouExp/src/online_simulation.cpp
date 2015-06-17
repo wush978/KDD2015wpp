@@ -73,6 +73,13 @@ struct LastDataCache {
 };
 
 std::auto_ptr<LastDataCache> last_m(NULL);
+
+//'@export
+// [[Rcpp::export]]
+void reset_cache() {
+  last_m.reset(NULL);
+}
+
 //'@export
 // [[Rcpp::export]]
 SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_click, LogicalVector is_win,
