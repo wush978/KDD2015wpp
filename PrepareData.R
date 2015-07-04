@@ -56,13 +56,13 @@ for(season in c("training2nd", "training3rd")) {
     loginfo("joining season: %s day: %s", season, day)
     col.class <- impColClass(season)
     bid <- sprintf("ipinyou.contest.dataset/%s/bid.%s.txt", season, format(day, fmt)) %>%
-      fread(sep = "\t", colClasses = as.vector(bidColClass(season)), header = F, showProgress = interactive(), data.table = FALSE) %>%
+      fread(sep = "\t", colClasses = as.vector(bidColClass(season)), header = F, showProgress = interactive(), data.table = TRUE) %>%
       update.col.names(names(bidColClass(season)))
     imp <- sprintf("ipinyou.contest.dataset/%s/imp.%s.txt", season, format(day, fmt)) %>%
-      fread(sep = "\t", colClasses = as.vector(col.class), header = F, showProgress = interactive(), data.table = FALSE) %>%
+      fread(sep = "\t", colClasses = as.vector(col.class), header = F, showProgress = interactive(), data.table = TRUE) %>%
       update.col.names(names(col.class))
     clk <- sprintf("ipinyou.contest.dataset/%s/clk.%s.txt", season, format(day, fmt)) %>%
-      fread(sep = "\t", colClasses = as.vector(col.class), header = F, showProgress = interactive(), data.table = FALSE) %>%
+      fread(sep = "\t", colClasses = as.vector(col.class), header = F, showProgress = interactive(), data.table = TRUE) %>%
       update.col.names(names(col.class))
     impclk <- join.imp.clk(imp, clk) %>%
       mutate(is_click = !is.na(is_click))
