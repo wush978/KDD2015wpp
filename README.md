@@ -1,4 +1,4 @@
-# Reproduce the Experiments in "Predicting Winning Price in Real Time Bidding with Censored Data"
+# Reproduce the Experiments in "[Predicting Winning Price in Real Time Bidding with Censored Data](https://drive.google.com/file/d/0B5rJuVU7ijjIUVc5Rm10b2dreDhBb2xwcnNuOFl3TF9vNFdv/view?usp=sharing)"
 
 ## Environment
 
