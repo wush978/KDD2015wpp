@@ -6,6 +6,7 @@
 - Docker (Please read the installation guide here: <https://docs.docker.com/installation/ubuntulinux/>)
 - GNU Make
 - git
+- 16GB Memory
 
 ## Getting Started
 
