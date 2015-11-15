@@ -2,6 +2,11 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #'@export
+reset_cache <- function() {
+    invisible(.Call('IPinYouExp_reset_cache', PACKAGE = 'IPinYouExp'))
+}
+
+#'@export
 OnlineSimulation <- function(Rm, Rlearner_ctr, Rlearner_wr, is_click, is_win, bid_t, clk_t, is_continue = FALSE) {
     .Call('IPinYouExp_OnlineSimulation', PACKAGE = 'IPinYouExp', Rm, Rlearner_ctr, Rlearner_wr, is_click, is_win, bid_t, clk_t, is_continue)
 }

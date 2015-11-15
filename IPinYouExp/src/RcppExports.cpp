@@ -5,45 +5,46 @@
 
 using namespace Rcpp;
 
+// reset_cache
+void reset_cache();
+RcppExport SEXP IPinYouExp_reset_cache() {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    reset_cache();
+    return R_NilValue;
+END_RCPP
+}
 // OnlineSimulation
-SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_click, LogicalVector is_win, NumericVector bid_t, NumericVector clk_t, bool is_continue = false);
+SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_click, LogicalVector is_win, NumericVector bid_t, NumericVector clk_t, bool is_continue);
 RcppExport SEXP IPinYouExp_OnlineSimulation(SEXP RmSEXP, SEXP Rlearner_ctrSEXP, SEXP Rlearner_wrSEXP, SEXP is_clickSEXP, SEXP is_winSEXP, SEXP bid_tSEXP, SEXP clk_tSEXP, SEXP is_continueSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< S4 >::type Rm(RmSEXP );
-        Rcpp::traits::input_parameter< S4 >::type Rlearner_ctr(Rlearner_ctrSEXP );
-        Rcpp::traits::input_parameter< S4 >::type Rlearner_wr(Rlearner_wrSEXP );
-        Rcpp::traits::input_parameter< LogicalVector >::type is_click(is_clickSEXP );
-        Rcpp::traits::input_parameter< LogicalVector >::type is_win(is_winSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type bid_t(bid_tSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type clk_t(clk_tSEXP );
-        Rcpp::traits::input_parameter< bool >::type is_continue(is_continueSEXP );
-        SEXP __result = OnlineSimulation(Rm, Rlearner_ctr, Rlearner_wr, is_click, is_win, bid_t, clk_t, is_continue);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< S4 >::type Rm(RmSEXP);
+    Rcpp::traits::input_parameter< S4 >::type Rlearner_ctr(Rlearner_ctrSEXP);
+    Rcpp::traits::input_parameter< S4 >::type Rlearner_wr(Rlearner_wrSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type is_click(is_clickSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type is_win(is_winSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type bid_t(bid_tSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type clk_t(clk_tSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_continue(is_continueSEXP);
+    __result = Rcpp::wrap(OnlineSimulation(Rm, Rlearner_ctr, Rlearner_wr, is_click, is_win, bid_t, clk_t, is_continue));
+    return __result;
 END_RCPP
 }
 // OnlineSimulation2
-SEXP OnlineSimulation2(S4 Rm, S4 Rlearner_wr, NumericVector ECVR, LogicalVector is_win, NumericVector bid_t, bool is_continue = false);
+SEXP OnlineSimulation2(S4 Rm, S4 Rlearner_wr, NumericVector ECVR, LogicalVector is_win, NumericVector bid_t, bool is_continue);
 RcppExport SEXP IPinYouExp_OnlineSimulation2(SEXP RmSEXP, SEXP Rlearner_wrSEXP, SEXP ECVRSEXP, SEXP is_winSEXP, SEXP bid_tSEXP, SEXP is_continueSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< S4 >::type Rm(RmSEXP );
-        Rcpp::traits::input_parameter< S4 >::type Rlearner_wr(Rlearner_wrSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type ECVR(ECVRSEXP );
-        Rcpp::traits::input_parameter< LogicalVector >::type is_win(is_winSEXP );
-        Rcpp::traits::input_parameter< NumericVector >::type bid_t(bid_tSEXP );
-        Rcpp::traits::input_parameter< bool >::type is_continue(is_continueSEXP );
-        SEXP __result = OnlineSimulation2(Rm, Rlearner_wr, ECVR, is_win, bid_t, is_continue);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< S4 >::type Rm(RmSEXP);
+    Rcpp::traits::input_parameter< S4 >::type Rlearner_wr(Rlearner_wrSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ECVR(ECVRSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type is_win(is_winSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type bid_t(bid_tSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_continue(is_continueSEXP);
+    __result = Rcpp::wrap(OnlineSimulation2(Rm, Rlearner_wr, ECVR, is_win, bid_t, is_continue));
+    return __result;
 END_RCPP
 }
