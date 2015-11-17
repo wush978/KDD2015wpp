@@ -45,6 +45,7 @@ for(wp.ratio.i in seq_along(wp.ratio.all)) {
       bidimpclk <- readRDS(sprintf("cache/bidimpclk.%s.sim.Rds", format(day, "%Y%m%d")))
       bidimpclk <- mutate(bidimpclk, is_win = PayingPrice < wp.ratio * BiddingPrice)
       bidimpclk$is_click[!bidimpclk$is_win] <- NA
+      print(table(bidimpclk$is_click, useNA = "always"))
       m <- hashed.model.matrix(~ IP + Region + City + AdExchange + Domain + URL + AdSlotId + AdSlotWidth +
                                  AdSlotHeight + AdSlotVisibility + AdSlotFormat + CreativeID + weekday +
                                  hour + adid + split(usertag), bidimpclk, 2^20, transpose = TRUE, is.dgCMatrix = FALSE) %>%
