@@ -8,4 +8,6 @@ Maintainer: Wush Wu <wush978@gmail.com>
 Description: Some Functions for Experiments on iPinYou Dataset
 License: GPL (>= 3)
 LinkingTo: Rcpp
-Imports: Rcpp (>= 0.11.0)
+Imports:
+    Rcpp (>= 0.11.0)
+RoxygenNote: 5.0.0

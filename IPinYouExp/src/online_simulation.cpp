@@ -84,6 +84,7 @@ void reset_cache() {
 // [[Rcpp::export]]
 SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_click, LogicalVector is_win,
   NumericVector bid_t, NumericVector clk_t, bool is_continue = false) {
+  Rprintf("%s %d\n", __FILE__, __LINE__);
   // initializing input
   FTPRLLogisticRegressionLearner learner_ctr(Rlearner_ctr), learner_wr(Rlearner_wr);
   dgCMatrixProxy m(Rm);
@@ -147,10 +148,14 @@ SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_c
       // predict winning rate according to current wr model and ctr
       wr[i_bid] = sigma(learner_wr.predict(m, i_bid) + learner_wr.get_w(ctr_index % m.getNFeature()) * ctr[i_bid] * (ctr_sign == 1 ? 1 : -1));
       // update wr model according to data before 1 min
+      // Rprintf("%s %d\n", __FILE__, __LINE__);
       {
         update_wr_t = current_t - 60;
-        while(last_m->i_wr < last_m->m.getNInstance() & last_m->bid_t[last_m->i_wr] < update_wr_t) {
-         auto ctr_feature = ctr_index % last_m->m.getNFeature();
+        bool last_m_i_wr_valid = last_m->i_wr < last_m->m.getNInstance();
+        if (last_m_i_wr_valid) last_m_i_wr_valid = last_m->bid_t[last_m->i_wr] < update_wr_t;
+        // Rprintf("%s %d\n", __FILE__, __LINE__);
+        while(last_m_i_wr_valid) {
+          auto ctr_feature = ctr_index % last_m->m.getNFeature();
           double ctr_w = learner_wr.get_w(ctr_feature);
           double ctr_value = last_m->ctr[i_wr] * (ctr_sign == 1 ? 1 : -1);
           double pred = learner_wr.predict(last_m->m, last_m->i_wr) +  ctr_w * ctr_value;
@@ -159,7 +164,10 @@ SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_c
           double g = last_m->ctr[last_m->i_wr] * g0;
           learner_wr.update_zn(g, ctr_feature);
           last_m->i_wr++;
+          last_m_i_wr_valid = last_m->i_wr < last_m->m.getNInstance();
+          if (last_m_i_wr_valid) last_m_i_wr_valid = last_m->bid_t[last_m->i_wr] < update_wr_t;
         }
+        // Rprintf("%s %d\n", __FILE__, __LINE__);
         while(bid_t[i_wr] < update_wr_t) {
           auto ctr_feature = ctr_index % m.getNFeature();
           double ctr_w = learner_wr.get_w(ctr_feature);
@@ -175,13 +183,17 @@ SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_c
       // update ctr model according to data before 10 min
       {
         update_ctr_t = current_t - 600;
-        while(last_m->i_ctr < last_m->m.getNInstance() & last_m->bid_t[last_m->i_ctr] < current_t - 600) {
+        bool last_m_i_ctr_valid = last_m->i_ctr < last_m->m.getNInstance();
+        if (last_m_i_ctr_valid) last_m_i_ctr_valid = last_m->bid_t[last_m->i_ctr] < current_t - 600;
+        while(last_m_i_ctr_valid) {
           if (last_m->is_click[last_m->i_ctr] != NA_INTEGER) {
             double pred = learner_ctr.predict(last_m->m, last_m->i_ctr);
             double g0 = sigma(pred) - last_m->is_click[last_m->i_ctr];
             learner_ctr.update(last_m->m, last_m->i_ctr, g0);
           }
           last_m->i_ctr++;
+          last_m_i_ctr_valid = last_m->i_ctr < last_m->m.getNInstance();
+          if (last_m_i_ctr_valid) last_m_i_ctr_valid = last_m->bid_t[last_m->i_ctr] < current_t - 600;
         }
         while(bid_t[i_ctr] < current_t - 600) {
           if (is_click[i_ctr] != NA_INTEGER) {
@@ -194,9 +206,9 @@ SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_c
       }
     }
   }
-  {
-    last_m.reset(new LastDataCache(Rm, is_click, is_win, bid_t, clk_t, ctr, wr, i_bid, i_ctr, i_wr));
-  }
+  Rprintf("Saving model to last_m (i_bid: %d i_ctr: %d i_wr: %d)\n", i_bid, i_ctr, i_wr);
+  last_m.reset(new LastDataCache(Rm, is_click, is_win, bid_t, clk_t, ctr, wr, i_bid, i_ctr, i_wr));
+  Rprintf("Saved! (i_bid: %d i_ctr: %d i_wr: %d)", last_m->i_bid, last_m->i_ctr, last_m->i_wr);
   List retval;
   retval["ctr"] = ctr;
   retval["wr"] = wr;
@@ -207,6 +219,7 @@ SEXP OnlineSimulation(S4 Rm, S4 Rlearner_ctr, S4 Rlearner_wr, LogicalVector is_c
 // [[Rcpp::export]]
 SEXP OnlineSimulation2(S4 Rm, S4 Rlearner_wr, NumericVector ECVR, LogicalVector is_win,
   NumericVector bid_t, bool is_continue = false) {
+  Rprintf("%s %d\n", __FILE__, __LINE__);
   // initializing input
   FTPRLLogisticRegressionLearner learner_wr(Rlearner_wr);
   dgCMatrixProxy m(Rm);
@@ -277,9 +290,9 @@ SEXP OnlineSimulation2(S4 Rm, S4 Rlearner_wr, NumericVector ECVR, LogicalVector 
       wr[i_bid] = sigma(learner_wr.predict(m, i_bid) + learner_wr.get_w(ctr_index % m.getNFeature()) * ctr[i_bid] * (ctr_sign == 1 ? 1 : -1));
     }
   }
-  {
-    last_m.reset(new LastDataCache(Rm, is_win, is_win, bid_t, bid_t, ctr, wr, i_bid, i_wr, i_wr));
-  }
+  Rprintf("Saving model to last_m (i_bid: %d i_ctr: %d i_wr: %d)\n", i_bid, i_wr, i_wr);
+  last_m.reset(new LastDataCache(Rm, is_win, is_win, bid_t, bid_t, ctr, wr, i_bid, i_wr, i_wr));
+  Rprintf("Saved! (i_bid: %d i_ctr: %d i_wr: %d)", last_m->i_bid, last_m->i_ctr, last_m->i_wr);
   List retval;
   retval["wr"] = wr;
   return retval;
