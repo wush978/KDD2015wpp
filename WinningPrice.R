@@ -74,7 +74,7 @@ censored_regression2 <- function(m, y, is_win, sigma, lambda2 = 1000, start = re
     dzdl.censored <- -exp(dnorm(z.censored, log = TRUE) - pnorm(z.censored, log.p = TRUE))
     dzdl <- z
     dzdl[!is_win] <- dzdl.censored
-    (m %*% dzdl) / sigma + c(0, tail(w, -1))
+    (m %*% dzdl) / sigma + lambda2 * c(0, tail(w, -1))
   }
   r.w <- optim(start, f.w, g.w, method = "L-BFGS-B", control = list(maxit = ifelse(interactive(), 100, 20000), trace = ifelse(interactive(), 1, 0)))
   list(predict = function(m) r.w$par %*% m, r = r.w)
