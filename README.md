@@ -30,3 +30,8 @@ After downloading the dataset, please execute `make` to reproduce the experiment
 ## Trouble Shooting
 
 If you have any problem, please feel free to post an issue in <https://github.com/wush978/KDD2015wpp/issues>.
+
+## Bug Fixes
+
+Thanks for the suggestion from @ysk24ok and @jacky168, the code is updated to correct the mistakes.
+The code used in the paper is put to the tag `submission-of-kdd`
