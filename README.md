@@ -1,5 +1,9 @@
 # Reproduce the Experiments in "[Predicting Winning Price in Real Time Bidding with Censored Data](https://drive.google.com/file/d/0B5rJuVU7ijjIUVc5Rm10b2dreDhBb2xwcnNuOFl3TF9vNFdv/view?usp=sharing)"
 
+## Corrigendum 
+
+- The Eq.(5) in our paper should be $\sum_{i \in W} {- log\left( \phi(\frac{w_i - \beta_{clm}^T}{\sigma}) \right)} + \sum_{i \in L} {-log\left( \Phi(\frac{\beta_{clm}^Tx_i - b_i}{\sigma}) \right)}$. The original Eq.(5) uses the winning probability, however, the $L$ is the losing bids. Therefore, it should be the losing probability.
+
 ## Environment
 
 - Ubuntu
