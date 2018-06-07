@@ -2,7 +2,7 @@
 
 ## Corrigendum 
 
-- The Eq.(5) in our paper should be $\sum_{i \in W} {- log\left( \phi(\frac{w_i - \beta_{clm}^T}{\sigma}) \right)} + \sum_{i \in L} {-log\left( \Phi(\frac{\beta_{clm}^Tx_i - b_i}{\sigma}) \right)}$. The original Eq.(5) uses the winning probability, however, the $L$ is the losing bids. Therefore, it should be the losing probability.
+- The Eq.(5) in our paper should be $\sum_{i \in W} {- log\left( \phi(\frac{w_i - \beta_{clm}^T}{\sigma}) \right)} + \sum_{i \in L} {-log\left( \Phi(\frac{\beta_{clm}^Tx_i - b_i}{\sigma}) \right)}$. <img src="https://i.imgur.com/Ac8WNLu.png"/> The original Eq.(5) uses the winning probability, however, the $L$ is the losing bids. Therefore, it should be the losing probability.
 
 ## Environment
 
