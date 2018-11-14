@@ -10,7 +10,9 @@ RUN Rscript -e "install.packages('dplyr')" && \
 # Packages for experiments
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends libxml2-dev libcurl4-nss-dev libssl-dev ca-certificates git && \
-  Rscript -e "install.packages(c('roxygen2', 'glmnet', 'FeatureHashing'))" && \
+  Rscript -e "install.packages('devtools')" && \
+  Rscript -e "devtools::install_version(package = 'roxygen2', version = '5.0.1')" && \
+  Rscript -e "install.packages(c('glmnet', 'FeatureHashing'))" && \
   cd /root && git clone https://github.com/wush978/FastROC && \
   R CMD INSTALL FastROC
 # Packages for reproducible research
